@@ -1,85 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
-<h1 id="question"></h1>
- <div>
-    <input type="radio" id="a0" name="answer" value="huey" checked>
-    <label id="a0label" for="a0">Huey</label>
-    <input type="radio" id="a1" name="answer" value="huey" checked>
-    <label id="a1label" for="a1">Huey</label>
-    <input type="radio" id="a2" name="answer" value="huey" checked>
-    <label id="a2label" for="a2">Huey</label>
-    <input type="radio" id="a3" name="answer" value="huey" checked>
-    <label id="a3label" for="a3">Huey</label>
-</div>
-<button onclick = "submitAnswer()" id="submit">Submit Answer
-    
-</button>
-    
-</body>
+  <body>
+    <h1 id="question"></h1>
+    <div>
+      <input type="radio" id="a0" name="answer" value="huey" />
+      <label id="a0label" for="a0">Huey</label>
+      <input type="radio" id="a1" name="answer" value="huey" />
+      <label id="a1label" for="a1">Huey</label>
+      <input type="radio" id="a2" name="answer" value="huey" />
+      <label id="a2label" for="a2">Huey</label>
+      <input type="radio" id="a3" name="answer" value="huey" />
+      <label id="a3label" for="a3">Huey</label>
+    </div>
+    <button onclick="submitAnswer()" id="submit">Submit Answer</button>
+  </body>
 
-<script>
-console.log("hello world");
-var questions = [{
-    text: "this is a question",
-    answers: ["0","1","2","3"],
-    correctAnswer: 2
-}, {
-    text: "javascript question 2",
-    answers: ["0","1","2","3"],
-    correctAnswer: 1
-}, {
-    text: "javascript question 3",
-    answers: ["0","1","2","3"],
-    correctAnswer: 1
-}, {
-    text: "javascript question 4",
-    answers: ["0","1","2","3"],
-    correctAnswer: 1
-}, {
-    text: "javascript question 5",
-    answers: ["0","1","2","3"],
-    correctAnswer: 1
-}]
+  <script>
+    function getUserSelectedOptionValue() {
+      return document.querySelector('input[name="answer"]:checked').value;
+    }
+    var questions = [
+      {
+        text: "this is a question",
+        answers: ["0", "1", "2", "3"],
+        correctAnswer: 2,
+      },
+      {
+        text: "javascript question 2",
+        answers: ["0", "1", "2", "3"],
+        correctAnswer: 1,
+      },
+      {
+        text: "javascript question 3",
+        answers: ["0", "1", "2", "3"],
+        correctAnswer: 1,
+      },
+      {
+        text: "javascript question 4",
+        answers: ["0", "1", "2", "3"],
+        correctAnswer: 1,
+      },
+      {
+        text: "javascript question 5",
+        answers: ["0", "1", "2", "3"],
+        correctAnswer: 1,
+      },
+    ];
 
-var a0label=document.getElementById("a0label")
-var a1label=document.getElementById("a1label")
-var a2label=document.getElementById("a2label")
-var a3label=document.getElementById("a3label")
-var a0input=document.getElementById("a0")
-var a1input=document.getElementById("a1")
-var a2input=document.getElementById("a2")
-var a3input=document.getElementById("a3")
-var questiontext=document.getElementById("question")
+    var a0label = document.getElementById("a0label");
+    var a1label = document.getElementById("a1label");
+    var a2label = document.getElementById("a2label");
+    var a3label = document.getElementById("a3label");
+    var a0input = document.getElementById("a0");
+    var a1input = document.getElementById("a1");
+    var a2input = document.getElementById("a2");
+    var a3input = document.getElementById("a3");
+    var questiontext = document.getElementById("question");
+    var outcomeDiv = document.getElementById("outcome");
+    var updatehtml = (index) => {
+      a0label.innerText = questions[index].answers[0];
+      a1label.innerText = questions[index].answers[1];
+      a2label.innerText = questions[index].answers[2];
+      a3label.innerText = questions[index].answers[3];
+      a0input.value = questions[index].answers[0];
+      a1input.value = questions[index].answers[1];
+      a2input.value = questions[index].answers[2];
+      a3input.value = questions[index].answers[3];
+      questiontext.innerText = questions[index].text;
+    };
+    updatehtml(0);
+    var i = 0;
+    var submitAnswer = () => {
+      // document.querySelector('input[name="rate"]:checked').value;
 
-var updatehtml = (index) => {
-    a0label.innerText = questions[index].answers[0]
-    a1label.innerText = questions[index].answers[1]
-    a2label.innerText = questions[index].answers[2]
-    a3label.innerText = questions[index].answers[3]
-    a0input.value = questions[index].answers[0]
-    a1input.value = questions[index].answers[1]
-    a2input.value = questions[index].answers[2]
-    a3input.value = questions[index].answers[3]
-    questiontext.innerText = questions[index].text
-    
-}
-updatehtml(0)
-var i = 0
-var submitAnswer = () => {
-//if i is equal to questions.length then show the final results screen
-    i++
-updatehtml(i)
-}
+      //  compare the correct answer vs the user's choice - put inside a if statement, if a === b show 'Correct'
+      var currentQuestion = questions[i];
+      var correctAnswer =
+        currentQuestion.answers[currentQuestion.correctAnswer];
+      var selected = getUserSelectedOptionValue();
 
-</script>
-<style></style>
-    
+      if (selected === correctAnswer) {
+        console.log("Correct");
+        outcomeDiv.textContent = "Correct";
+      } else {
+        console.log("Incorrect");
+        outcomeDiv.textContent = "Incorrect";
+      }
+
+      console.log(selected);
+
+      //create empty div in html, give id -> out come message <div id="outcome> innertext.html=  </div>"
+      // test //
+      //if a is not equal to b show false
+      //if i is equal to questions.length then show the final results screen//
+      i++;
+      updatehtml(i);
+    };
+  </script>
+  <style></style>
 </html>
