@@ -13,7 +13,12 @@ function getUserSelectedOptionValue() {
 var questions = [
   {
     text: "this is a question",
-    answers: ["a", "b", "c", "d"],
+    answers: [
+      "the moon is flat",
+      "b",
+      " return document.querySelector('input[name='answer']:checked').value;",
+      "d",
+    ],
     correctAnswer: 2,
   },
   {
@@ -37,6 +42,10 @@ var questions = [
     correctAnswer: 1,
   },
 ];
+
+var tableElementEl = document.getElementById("tableElement");
+var resetEl = document.getElementById("reset");
+var timeRemainingEl = document.getElementById("timeRemaining");
 var highscoretable = document.getElementById("highscoretable");
 var username = document.getElementById("username");
 var submitscore = document.getElementById("submitscore");
@@ -64,9 +73,7 @@ var updatehtml = (index) => {
   a3input.value = questions[index].answers[3];
   questiontext.innerText = questions[index].text;
 };
-updatehtml(0);
-var i = 0;
-var totalScore = 0;
+
 var submitAnswer = () => {
   // document.querySelector('input[name="rate"]:checked').value;
 
@@ -77,20 +84,28 @@ var submitAnswer = () => {
   var selected = getUserSelectedOptionValue();
 
   if (selected === correctAnswerString) {
-    console.log("Correct");
+    // console.log("Correct");
     totalScore++;
-    // outcomeDiv.textContent = "Correct";
+    outcomeDiv.textContent = "Correct";
   } else {
-    console.log("Incorrect");
-    // outcomeDiv.textContent = "Incorrect";
+    // console.log("Incorrect");
+    time -= 30;
+    timeRemainingEl.innerText = time;
+    if (time <= 0) {
+      displayResults();
+    }
+    outcomeDiv.textContent = "Incorrect";
   }
+  outcomeDiv.classList.remove("fadeUp");
+  setTimeout(() => {
+    outcomeDiv.classList.add("fadeUp");
+  }, 0);
+
+  // outcomeDiv.style.animation = "";
+  // outcomeDiv.style.animation = "fadeOutUp 2s ease-in-out";
 
   console.log(selected);
 
-  // create empty div in html, give id -> out come message <div id="outcome> innertext.html=  </div>"
-  // test //
-  // if a is not equal to b show false
-  // if i is equal to questions.length then show the final results screen//
   i++;
   if (i == questions.length) {
     console.log("Quiz Over");
@@ -100,6 +115,7 @@ var submitAnswer = () => {
   }
 };
 function displayResults() {
+  clearInterval(timerInterval);
   quizEl.style.display = "none";
   resultsEl.style.display = "block";
   finalScoreEl.innerText = `${totalScore} / ${questions.length}`;
@@ -117,7 +133,34 @@ function displayHighScores() {
   highscores.sort(function (b, a) {
     return parseFloat(a.score) - parseFloat(b.score);
   });
+  tableElementEl.innerHTML = "";
   highscores.forEach((highscore) => {
-    highscoretable.innerHTML += `<div> ${highscore.name} : ${highscore.score}</div>`;
+    tableElementEl.innerHTML += `<tr>
+      <td>${highscore.name}</td>
+      <td>${highscore.score}</td>
+    </tr>`;
   });
 }
+
+// set i back to 0, set score to 0 call html function
+function resetQuiz() {
+  updatehtml(0);
+  i = 0;
+  totalScore = 0;
+  time = 90;
+  quizEl.style.display = "block";
+  resultsEl.style.display = "none";
+  highscoretable.style.display = "none";
+  timerInterval = setInterval(() => {
+    time--;
+    timeRemainingEl.innerText = time;
+    if (time <= 0) {
+      displayResults();
+    }
+  }, 1000);
+}
+var time = 90;
+var timerInterval = null;
+var i = 0;
+var totalScore = 0;
+resetQuiz();
