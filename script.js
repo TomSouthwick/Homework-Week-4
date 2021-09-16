@@ -12,34 +12,64 @@ function getUserSelectedOptionValue() {
 }
 var questions = [
   {
-    text: "this is a question",
+    text: "What are Screen Objects",
     answers: [
       "the moon is flat",
-      "b",
-      " return document.querySelector('input[name='answer']:checked').value;",
-      "d",
+      "AvailWidth: Gives the width of the client’s screen",
+      "AvailLength: Gives the width of the client’s screen",
+      "Both AvailWidth and AvailLength",
+    ],
+    correctAnswer: 1,
+  },
+  {
+    text: "Which of the following function of Boolean object returns the primitive value of the Boolean object?",
+    answers: ["None of the below", "toSubString()", "toString()", "valueOf()"],
+    correctAnswer: 3,
+  },
+  {
+    text: "Which of the following function of Array object adds one or more elements to the front of an array and returns the new length of the array?",
+    answers: ["splice()", "join()", "sort()", "unshift()"],
+    correctAnswer: 1,
+  },
+  {
+    text: "Which type of language is JavaScript",
+    answers: ["Object-Based", "Object-Oriented", "High-level", "A Complex one"],
+    correctAnswer: 0,
+  },
+  {
+    text: "Which of the following type of a variable is volatile?",
+    answers: [
+      "Dynamic variable",
+      "Immutable variable",
+      "Volatile variable",
+      "Mutable variable",
+    ],
+    correctAnswer: 3,
+  },
+  {
+    text: "Every object contains three object attributes that are _______?",
+    answers: [
+      "Class, parameters, object's extensible flag",
+      "Native object, Classes and Interfaces and Object's extensible flag",
+      "Prototype, class, object's extensible flag",
+      "Prototype, class, objects' parameters",
     ],
     correctAnswer: 2,
   },
   {
-    text: "javascript question 2",
-    answers: ["0", "1", "2", "3"],
-    correctAnswer: 1,
+    text: "In JavaScript, do the functions always return a value?",
+    answers: [
+      "Some functions do not return any value",
+      "No, it is not necessary",
+      "Wow the Sun is really big",
+      "A number of functions return values by default",
+    ],
+    correctAnswer: 3,
   },
   {
-    text: "javascript question 3",
-    answers: ["0", "1", "2", "3"],
-    correctAnswer: 1,
-  },
-  {
-    text: "javascript question 4",
-    answers: ["0", "1", "2", "3"],
-    correctAnswer: 1,
-  },
-  {
-    text: "javascript question 5",
-    answers: ["0", "1", "2", "3"],
-    correctAnswer: 1,
+    text: "Who is the greatest full stack developer to have ever lived?",
+    answers: ["Tom Southwick", "Ben", "Yun", "Jeff Bezos"],
+    correctAnswer: 0,
   },
 ];
 
@@ -147,7 +177,7 @@ function resetQuiz() {
   updatehtml(0);
   i = 0;
   totalScore = 0;
-  time = 90;
+  time = 120;
   quizEl.style.display = "block";
   resultsEl.style.display = "none";
   highscoretable.style.display = "none";
@@ -158,8 +188,10 @@ function resetQuiz() {
       displayResults();
     }
   }, 1000);
+  // if i = question . length add the what
+  //  reset style
 }
-var time = 90;
+var time = 120;
 var timerInterval = null;
 var i = 0;
 var totalScore = 0;
